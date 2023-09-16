@@ -28,6 +28,6 @@ router.get("/posts/:id/comments", comment_controller.get_comments);
 
 router.post("/posts/:id/comments", comment_controller.create_comment);
 
-router.delete("/posts/:id/comments/:id", comment_controller.delete_comment);
+router.delete("/posts/:id/comments/:commentId", comment_controller.delete_comment);
 
 module.exports = router;

@@ -5,12 +5,12 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
 	title: { type: String, required: true },
 	content: { type: String, required: true },
-	date: Date(),
-	comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+	date: Date,
+	isPublished: { type: Boolean, default: false },
 });
 
 PostSchema.virtual("date_formatted").get(function () {
 	return DateTime.fromJSDate(this.date).toLocaleString(DateTime.DATE_MED);
 });
 
-module.exports = mongoose.Model("Post", PostSchema);
+module.exports = mongoose.model("Post", PostSchema);
