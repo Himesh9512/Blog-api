@@ -4,12 +4,21 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 
 const indexRouter = require("./routes/index");
 
 dotenv.config();
 
 const app = express();
+
+//database setup
+mongoose.set("strictQuery", false);
+async function main() {
+	const mongdoDB = process.env.CONNECTION_KEY;
+	await mongoose.connect(mongdoDB);
+}
+main().catch((e) => console.log(e));
 
 app.use(logger("dev"));
 app.use(express.json());
