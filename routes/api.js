@@ -18,16 +18,16 @@ router.get("/posts", post_controller.get_posts);
 
 router.post("/posts", post_controller.create_post);
 
-router.get("/posts/:id", post_controller.get_single_post);
+router.get("/posts/:postid", post_controller.get_single_post);
 
-router.put("/posts/:id", post_controller.update_post);
+router.put("/posts/:postid", post_controller.update_post);
 
-router.delete("/posts/:id", post_controller.delete_post);
+router.delete("/posts/:postid", post_controller.delete_post);
 
-router.get("/posts/:id/comments", comment_controller.get_comments);
+router.get("/posts/:postid/comments", comment_controller.get_comments);
 
-router.post("/posts/:id/comments", comment_controller.create_comment);
+router.post("/posts/:postid/comments", comment_controller.create_comment);
 
-router.delete("/posts/:id/comments/:commentId", comment_controller.delete_comment);
+router.delete("/posts/:postid/comments/:commentid", comment_controller.delete_comment);
 
 module.exports = router;

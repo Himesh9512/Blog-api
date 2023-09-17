@@ -3,14 +3,13 @@ const Post = require("../models/Post");
 
 exports.get_posts = asyncHandler(async (req, res, next) => {
 	const posts = await Post.find({ isPublished: false });
-
 	res.json(posts);
 });
 
 exports.get_single_post = asyncHandler(async (req, res, next) => {
-	const { id } = req.params;
+	const { postid } = req.params;
 
-	const post = await Post.findById(id);
+	const post = await Post.findById(postid);
 
 	if (post) {
 		res.json(post);
