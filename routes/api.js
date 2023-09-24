@@ -5,9 +5,17 @@ const post_controller = require("../controllers/postController");
 const comment_controller = require("../controllers/commentController");
 const user_controller = require("../controllers/userController");
 
-router.get("/", function (req, res, next) {
+router.get("/", (req, res, next) => {
 	res.status = 200;
 	res.json({ data: "blog_api" });
+});
+
+router.get("/login/success", (req, res, next) => {
+	res.json({ message: "Login successful!", username: req.user.username });
+});
+
+router.get("/login/failure", (req, res, next) => {
+	res.json({ message: "Login failed!" });
 });
 
 router.post("/login", user_controller.user_login);
