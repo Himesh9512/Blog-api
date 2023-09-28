@@ -2,12 +2,31 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const dotenv = require("dotenv");
+dotenv.config();
 
-exports.user_login = passport.authenticate("local", {
-	successRedirect: "/api/login/success",
-	failureMessage: "/api/login/failure",
-});
+exports.jwtAuth = passport.authenticate("jwt", { session: false });
+
+exports.user_login = (req, res, next) => {
+	passport.authenticate("local", (err, user, info) => {
+		if (err || !user) {
+			return res.status(400).json({
+				message: "Something is not right",
+				user: user,
+			});
+		}
+		req.login(user, (err) => {
+			if (err) {
+				res.send(err);
+			}
+			// generate a signed son web token with the contents of user object and return it in the response
+			const token = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN);
+			return res.json({ user, token });
+		});
+	})(req, res);
+};
 
 exports.user_signup = [
 	body("username")
