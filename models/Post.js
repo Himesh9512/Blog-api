@@ -6,7 +6,6 @@ const PostSchema = new Schema({
 	title: { type: String, required: true },
 	content: { type: String, required: true },
 	date: Date,
-	isPublished: { type: Boolean, default: false },
 });
 
 PostSchema.virtual("date_formatted").get(function () {
