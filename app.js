@@ -8,6 +8,9 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const compression = require("compression");
+const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
 
 const User = require("./models/User");
 
@@ -26,9 +29,18 @@ async function main() {
 }
 main().catch((e) => console.log(e));
 
+const limiter = RateLimit({
+	windowMs: 1 * 60 * 1000, // 1 minute
+	max: 20,
+});
+
+app.use(limiter);
+app.use(compression());
+app.use(helmet());
+app.use(cors());
+
 require("./passport");
 
-app.use(cors());
 app.use(session({ secret: "thetopsecretkey", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
