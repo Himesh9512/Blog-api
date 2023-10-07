@@ -1,5 +1,6 @@
 const express = require("express");
 const createError = require("http-errors");
+const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -27,6 +28,7 @@ main().catch((e) => console.log(e));
 
 require("./passport");
 
+app.use(cors());
 app.use(session({ secret: "thetopsecretkey", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());

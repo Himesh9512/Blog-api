@@ -4,7 +4,10 @@ const Comment = require("../models/Comment");
 
 exports.get_comments = asyncHandler(async (req, res, next) => {
 	const { postid } = req.params;
-	const comments = await Comment.find({ postId: postid });
+	const comments = await Comment.find(
+		{ postId: postid },
+		{ username: 1, text: 1, date: 1, date_formatted: 1 },
+	);
 	res.json(comments);
 });
 

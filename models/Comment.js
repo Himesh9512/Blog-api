@@ -7,12 +7,15 @@ const options = {
 	toJSON: { virtuals: true },
 };
 
-const CommentSchema = new Schema({
-	postId: { type: Schema.Types.ObjectId, ref: "Post" },
-	username: { type: String, required: true },
-	text: { type: String },
-	date: Date,
-});
+const CommentSchema = new Schema(
+	{
+		postId: { type: Schema.Types.ObjectId, ref: "Post" },
+		username: { type: String, required: true },
+		text: { type: String },
+		date: Date,
+	},
+	options,
+);
 
 CommentSchema.virtual("date_formatted").get(function () {
 	return DateTime.fromJSDate(this.date).toLocaleString(DateTime.DATE_MED);
