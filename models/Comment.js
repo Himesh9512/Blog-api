@@ -3,6 +3,10 @@ const { DateTime } = require("luxon");
 
 const Schema = mongoose.Schema;
 
+const options = {
+	toJSON: { virtuals: true },
+};
+
 const CommentSchema = new Schema({
 	postId: { type: Schema.Types.ObjectId, ref: "Post" },
 	username: { type: String, required: true },
